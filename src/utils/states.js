@@ -6,10 +6,12 @@ export const productsInitialState = {
   hasFetched: false
 };
 export const productInitialState = {
-  product: {}
+  product: { in_stock: [] }
 };
 
 export const cartInitialState = {
   products: [],
-  hasFetched: false
+  hasFetched: false,
+  addSucces: false,
+  message: ''
 };

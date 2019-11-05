@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export const UserModal = ({ modalRef, onCloseModel, user, inputChange }) => {
+export const UserModal = ({ modalRef, saveUserInfo, user, inputChange }) => {
   return (
     <div className='modal fade' ref={modalRef} id='user_Modal'>
       <div className='modal-dialog'>
@@ -45,7 +45,7 @@ export const UserModal = ({ modalRef, onCloseModel, user, inputChange }) => {
             </div>
           </div>
           <div className='modal-footer'>
-            <button className='btn btn-primary' onClick={onCloseModel}>
+            <button className='btn btn-primary' onClick={saveUserInfo}>
               Save
             </button>
             <button className='btn btn-default pull-right' data-dismiss='modal'>
