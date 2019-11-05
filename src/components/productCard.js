@@ -13,11 +13,11 @@ export const ProductCard = ({ name, model, price, picture, productId }) => {
           <h6 className='card-subtitle mb-2 text-muted'>Model: {model}</h6>
           <div className='buy d-flex justify-content-between align-items-center'>
             <div className='price text-success'>
-              <h5 className='mt-4'>${price}</h5>
+              <h5 className='mt-4'>RwF{price}</h5>
             </div>
           </div>
-          <Link to={`/products/${productId}`} className='btn btn-danger'>
-            <i className='fas fa-shopping-cart'></i> Add to Cart
+          <Link to={`/products/${productId}`} className='btn btn-info'>
+            <i className='fas fa-shopping-cart'></i> View {name} details
           </Link>
         </div>
       </div>

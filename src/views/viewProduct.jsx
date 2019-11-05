@@ -31,10 +31,13 @@ class ViewProduct extends Component {
     this.props.getProductInfo(productId);
     this.props.getUserCartsItems(username);
   }
-  componentWillReceiveProps({ product, products }) {
+  componentWillReceiveProps({ product, products, message }) {
     const cart = { ...this.state.cart };
     cart.product_id = product.id;
     this.setState({ product, products, cart });
+    if (message) {
+      Notifier.success(message);
+    }
   }
   addToCart = () => {
     const { cart } = this.state;
@@ -131,7 +134,7 @@ class ViewProduct extends Component {
                     </div>
                     <div className='buy d-flex justify-content-between align-items-center'>
                       <div className='price text-success'>
-                        <h5 className='mt-4'>${product.price}</h5>
+                        <h5 className='mt-4'>RwF{product.price}</h5>
                       </div>
                       <button
                         className='btn btn-danger mt-3'
@@ -150,8 +153,12 @@ class ViewProduct extends Component {
     );
   }
 }
-const mapStateToProps = ({ product: { product }, cart: { products } }) => ({
+const mapStateToProps = ({
+  product: { product, message },
+  cart: { products }
+}) => ({
   product,
+  message,
   products
 });
 const connectedViewProduct = connect(
