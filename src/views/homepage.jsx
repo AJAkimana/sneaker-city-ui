@@ -21,7 +21,7 @@ class HomePage extends Component {
       <div>
         <ToastContainer />
         <div className='container'>
-          <div className='row'>
+          <div className='row mt-5'>
             {paginatedItems.map(product => (
               <ProductCard
                 key={product.id}

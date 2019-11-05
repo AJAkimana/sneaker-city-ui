@@ -85,7 +85,7 @@ class ViewProduct extends Component {
       <div>
         <ToastContainer />
         <div className='container'>
-          <CartNav totalItems={products.length} />
+          <CartNav totalItems={products.length} title={product.name} />
           <UserModal
             modalRef={modal => (this.modal = modal)}
             saveUserInfo={this.saveUserToLocal}

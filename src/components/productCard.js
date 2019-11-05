@@ -17,7 +17,8 @@ export const ProductCard = ({ name, model, price, picture, productId }) => {
             </div>
           </div>
           <Link to={`/products/${productId}`} className='btn btn-info'>
-            <i className='fas fa-shopping-cart'></i> View {name} details
+            <i className='fas fa-shopping-cart'></i> View{' '}
+            <strong>{name.toUpperCase()}</strong> details
           </Link>
         </div>
       </div>
