@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import $ from 'jquery';
 import { ToastContainer } from 'react-toastify';
 import { getUserCartsItems } from '../actions';
 import { cartInitialState, getLocalUser } from '../utils';
-import { defaultImage } from '../components/productCard';
 import { CartNav, CartIem, PaymentDetail } from '../components';
-import { UserModal } from '../components/userModal';
 import { Notifier } from '../helpers';
 
 window.jQuery = $;
@@ -77,17 +76,29 @@ class ViewCart extends Component {
 
           <div className='row'>
             <div className='card mb-5 mt-5 col-md-8'>
-              {products.map((product, index) => (
-                <CartIem
-                  key={index}
-                  name={product.name}
-                  description={product.description}
-                  model={product.model}
-                  size={product.size}
-                  price={product.price}
-                  onSelectItem={() => this.selectCartProduct(product)}
-                />
-              ))}
+              {products.length ? (
+                products.map((product, index) => (
+                  <CartIem
+                    key={index}
+                    name={product.name}
+                    description={product.description}
+                    model={product.model}
+                    size={product.size}
+                    price={product.price}
+                    onSelectItem={() => this.selectCartProduct(product)}
+                  />
+                ))
+              ) : (
+                <div className='display-4 mt-5'>
+                  <h4 className='text-center'>
+                    Oops, Your cart is empty. Please go to{' '}
+                    <Link to='/' className='btn-link'>
+                      Homepage
+                    </Link>{' '}
+                    to add products
+                  </h4>
+                </div>
+              )}
             </div>
             <div className='card col-md-4 mb-5 mt-5'>
               <div className='card-header'>

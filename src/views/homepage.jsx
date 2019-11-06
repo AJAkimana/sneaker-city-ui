@@ -35,41 +35,50 @@ class HomePage extends Component {
     return (
       <div className='mb-5'>
         <ToastContainer />
-        <div className='container'>
-          <CartNav
-            totalItems={cartProducts.length}
-            title='Welcome to Sneacker City'
-          />
-          <div className='row'>
-            <div className='col-md-10'>
-              <Paginator allPages={allPages} goToPage={this.goToPage} />
+        {paginatedItems.length ? (
+          <div className='container'>
+            <CartNav
+              totalItems={cartProducts.length}
+              title='Welcome to Sneacker City'
+            />
+
+            <div className='row'>
+              <div className='col-md-10'>
+                <Paginator allPages={allPages} goToPage={this.goToPage} />
+              </div>
+              <div className='col-md-2'>
+                <h4 className='text-center'>Page: {currentPage}</h4>
+              </div>
             </div>
-            <div className='col-md-2'>
-              <h4 className='text-center'>Page: {currentPage}</h4>
+            <div className='row mt-2'>
+              {paginatedItems.map(product => (
+                <ProductCard
+                  key={product.id}
+                  name={product.name}
+                  model={product.model}
+                  price={product.price}
+                  picture={product.picture}
+                  productId={product.id}
+                  releaseDate={product.release_date}
+                />
+              ))}
+            </div>
+            <div className='row'>
+              <div className='col-md-10'>
+                <Paginator allPages={allPages} goToPage={this.goToPage} />
+              </div>
+              <div className='col-md-2'>
+                <h4 className='text-center'>Page: {currentPage}</h4>
+              </div>
             </div>
           </div>
-          <div className='row mt-2'>
-            {paginatedItems.map(product => (
-              <ProductCard
-                key={product.id}
-                name={product.name}
-                model={product.model}
-                price={product.price}
-                picture={product.picture}
-                productId={product.id}
-                releaseDate={product.release_date}
-              />
-            ))}
+        ) : (
+          <div className='container mt-5'>
+            <h4 className='display-4 text-center'>
+              Oops, No products. Please check the network
+            </h4>
           </div>
-          <div className='row'>
-            <div className='col-md-10'>
-              <Paginator allPages={allPages} goToPage={this.goToPage} />
-            </div>
-            <div className='col-md-2'>
-              <h4 className='text-center'>Page: {currentPage}</h4>
-            </div>
-          </div>
-        </div>
+        )}
       </div>
     );
   }

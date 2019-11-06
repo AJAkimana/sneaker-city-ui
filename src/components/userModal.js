@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 export const UserModal = ({ modalRef, saveUserInfo, user, inputChange }) => {
   return (
@@ -7,9 +6,6 @@ export const UserModal = ({ modalRef, saveUserInfo, user, inputChange }) => {
       <div className='modal-dialog'>
         <div className='modal-content'>
           <div className='modal-header'>
-            <button className='close' type='button' data-dismiss='modal'>
-              ×
-            </button>
             <h4 className='modal-title'>Provide your information</h4>
           </div>
           <div className='modal-body'>

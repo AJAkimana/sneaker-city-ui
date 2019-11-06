@@ -6,7 +6,7 @@ export const Notifier = {
     }),
   info: message =>
     toast.info(message, {
-      toastId: 13
+      toastId: 14
     }),
-  success: message => toast.success(message, { toastId: 13 })
+  success: message => toast.success(message, { toastId: 15 })
 };
