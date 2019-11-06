@@ -29,7 +29,7 @@ class ViewProduct extends Component {
     this.props.getProductInfo(productId);
     this.props.getUserCartsItems(username);
   }
-  componentWillReceiveProps({ product, products, message }) {
+  UNSAFE_componentWillReceiveProps({ product, products, message }) {
     const cart = { ...this.state.cart };
     let cartTotalItems = this.state.cartTotalItems;
     cart.product_id = product.id;
@@ -106,11 +106,22 @@ class ViewProduct extends Component {
                     <h6 className='card-subtitle mb-2 text-muted'>
                       Model: {product.model}
                     </h6>
+                    <h6 className='card-subtitle mb-2 text-muted'>
+                      Brand: {product.brand}
+                    </h6>
                     <p className='card-text'>{product.description}</p>
                     <div className='options d-flex flex-fill'></div>
                     <div className='row'>
-                      <div className='col-md-12'>
+                      <div className='col-md-7'>
                         <div className='text-center'>Quantities in stock</div>
+                      </div>
+                      <div className='col-md-5'>
+                        <div className='text-center'>
+                          Release date:{' '}
+                          <span className='badge badge-secondary'>
+                            {product.release_date}
+                          </span>
+                        </div>
                       </div>
                       {product.in_stock.map((stock, index) => (
                         <div

@@ -14,5 +14,6 @@ export const cartInitialState = {
   products: [],
   hasFetched: false,
   addSucces: false,
+  finishSuccess: false,
   message: ''
 };

@@ -5,7 +5,7 @@ import { ViewProduct } from './viewProduct';
 import { ViewCart } from './viewCart';
 import { ThankYou } from './thankYou';
 
-export const Routes = props => {
+export const Routes = () => {
   return (
     <Switch>
       <Route path='/' exact component={HomePage} />

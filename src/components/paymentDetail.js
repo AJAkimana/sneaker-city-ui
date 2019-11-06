@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-export const PaymentDetail = () => {
+export const PaymentDetail = ({ totalAmount, actionProgress, onFinish }) => {
   return (
     <div className='panel panel-default'>
       <div className='panel-heading'>
@@ -67,25 +68,25 @@ export const PaymentDetail = () => {
           </div>
         </form>
       </div>
-      <ul className='nav nav-pills nav-stacked'>
-        <li className='active'>
-          <a href='#'>
-            <span className='badge pull-right'>
-              <span className='glyphicon glyphicon-usd'></span>
-              4200
-            </span>{' '}
-            Final Payment
-          </a>
-        </li>
-      </ul>
-      <br />
-      <a
-        href='http://www.jquery2dotnet.com'
-        className='btn btn-success btn-lg btn-block'
-        role='button'
-      >
-        Pay
-      </a>
+      <div className='panel-footer'>
+        Final Payment{' '}
+        <span className='badge badge-pill badge-success'>{totalAmount}</span>
+      </div>
+      <div className='progress'>
+        <div
+          className='progress-bar'
+          role='progressbar'
+          style={{ width: `${actionProgress}%` }}
+          aria-valuenow={actionProgress}
+          aria-valuemin='0'
+          aria-valuemax='100'
+        >
+          {actionProgress}%
+        </div>
+      </div>
+      <button onClick={onFinish} className='btn btn-success btn-lg btn-block'>
+        Finish payment
+      </button>
     </div>
   );
 };

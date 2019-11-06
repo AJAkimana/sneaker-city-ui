@@ -1,10 +1,10 @@
 import { GET_ALL_PRODUCTS, GET_ONE_PRODUCT } from './types';
 import { http } from '../helpers';
 
-export const getAllProducts = () => dispatch => {
+export const getAllProducts = (page = 1, pageSize = 10) => dispatch => {
   dispatch({
     type: GET_ALL_PRODUCTS,
-    payload: http.get('/products')
+    payload: http.get(`/products?page=${page}&pageSize=${pageSize}`)
   });
 };
 

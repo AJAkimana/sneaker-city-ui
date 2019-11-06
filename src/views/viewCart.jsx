@@ -7,7 +7,7 @@ import { cartInitialState, getLocalUser } from '../utils';
 import { defaultImage } from '../components/productCard';
 import { CartNav, CartIem, PaymentDetail } from '../components';
 import { UserModal } from '../components/userModal';
-import { Notifier } from '../helpers/notifier';
+import { Notifier } from '../helpers';
 
 window.jQuery = $;
 window.$ = $;
@@ -17,14 +17,16 @@ class ViewCart extends Component {
     ...cartInitialState,
     numberOfItems: 0,
     totalAmout: 0,
-    itemSelected: []
+    itemSelected: [],
+    showPayment: 'd-none',
+    actionProgress: 0
   };
   componentDidMount() {
     const user = getLocalUser();
     const { username } = user;
     this.props.getUserCartsItems(username);
   }
-  componentWillReceiveProps({ products }) {
+  UNSAFE_componentWillReceiveProps({ products }) {
     this.setState({ products });
   }
   selectCartProduct = product => {
@@ -41,8 +43,29 @@ class ViewCart extends Component {
     }
     this.setState({ itemSelected, totalAmout, numberOfItems });
   };
+  checkoutToPay = () => {
+    const { numberOfItems } = this.state;
+    if (numberOfItems) {
+      this.setState({ showPayment: '' });
+    } else {
+      Notifier.error(
+        'Sorry please add at least one product from shopping cart'
+      );
+    }
+  };
+  finishPayment = () => {
+    setTimeout(() => {
+      this.props.history.replace('/thank-you');
+    }, 3000);
+  };
   render() {
-    const { products, totalAmout, numberOfItems } = this.state;
+    const {
+      products,
+      totalAmout,
+      numberOfItems,
+      showPayment,
+      actionProgress
+    } = this.state;
     return (
       <div>
         <ToastContainer />
@@ -83,11 +106,18 @@ class ViewCart extends Component {
                     RwF{totalAmout}
                   </label>
                 </h4>
-                <button className='btn btn-success'>
+                <button
+                  className='btn btn-success'
+                  onClick={() => this.checkoutToPay()}
+                >
                   <i className='fas fa-shopping-cart'></i> Check out to pay
                 </button>
-                <div className='row mt-5'>
-                  <PaymentDetail />
+                <div className={`row mt-5 ${showPayment}`}>
+                  <PaymentDetail
+                    totalAmount={totalAmout}
+                    actionProgress={actionProgress}
+                    onFinish={this.finishPayment}
+                  />
                 </div>
               </div>
               <div className='card-footer'></div>
