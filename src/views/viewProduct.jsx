@@ -3,15 +3,12 @@ import { connect } from 'react-redux';
 import $ from 'jquery';
 import { ToastContainer } from 'react-toastify';
 import { getProductInfo, getUserCartsItems, addItemToCart } from '../actions';
-import { productInitialState, cartInitialState } from '../utils';
+import { productInitialState, cartInitialState, getLocalUser } from '../utils';
 import { defaultImage } from '../components/productCard';
 import { CartNav } from '../components';
 import { UserModal } from '../components/userModal';
 import { Notifier } from '../helpers/notifier';
 
-window.jQuery = $;
-window.$ = $;
-global.jQuery = $;
 class ViewProduct extends Component {
   state = {
     ...productInitialState,
@@ -20,24 +17,30 @@ class ViewProduct extends Component {
       product_id: null,
       user: { username: '', address: '', names: '' },
       size: ''
-    }
+    },
+    cartTotalItems: 0
   };
   componentDidMount() {
     const {
       params: { productId }
     } = this.props.match;
-    const user = JSON.parse(localStorage.user);
-    const username = user ? user.username : '';
+    const user = getLocalUser();
+    const { username } = user;
     this.props.getProductInfo(productId);
     this.props.getUserCartsItems(username);
   }
   componentWillReceiveProps({ product, products, message }) {
     const cart = { ...this.state.cart };
+    let cartTotalItems = this.state.cartTotalItems;
     cart.product_id = product.id;
-    this.setState({ product, products, cart });
     if (message) {
+      $(this.modal).modal('hide');
       Notifier.success(message);
+      cartTotalItems++;
+    } else {
+      cartTotalItems = products.length;
     }
+    this.setState({ product, products, cart, cartTotalItems });
   }
   addToCart = () => {
     const { cart } = this.state;
@@ -48,9 +51,6 @@ class ViewProduct extends Component {
       cart.user = user;
       this.props.addItemToCart(cart);
     }
-  };
-  closeUserModal = () => {
-    $(this.modal).modal('hide');
   };
   handleInputChange = event => {
     const card = { ...this.state.cart };
@@ -67,9 +67,6 @@ class ViewProduct extends Component {
     const { card } = this.state;
     if (names && username && address) {
       localStorage.setItem('user', JSON.stringify(this.state.cart.user));
-      names = '';
-      username = '';
-      address = '';
       this.props.addItemToCart(card);
     } else {
       Notifier.error('Please add your information');
@@ -78,14 +75,14 @@ class ViewProduct extends Component {
   render() {
     const {
       product,
-      products,
+      cartTotalItems,
       cart: { user }
     } = this.state;
     return (
       <div>
         <ToastContainer />
         <div className='container'>
-          <CartNav totalItems={products.length} title={product.name} />
+          <CartNav totalItems={cartTotalItems} title={product.name} />
           <UserModal
             modalRef={modal => (this.modal = modal)}
             saveUserInfo={this.saveUserToLocal}
@@ -154,8 +151,8 @@ class ViewProduct extends Component {
   }
 }
 const mapStateToProps = ({
-  product: { product, message },
-  cart: { products }
+  product: { product },
+  cart: { products, message }
 }) => ({
   product,
   message,

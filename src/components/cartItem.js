@@ -12,7 +12,7 @@ export const CartIem = ({
   return (
     <div className='row no-gutters'>
       <div className='col-md-1'>
-        <label class='checkbox-inline'>
+        <label className='checkbox-inline'>
           <input
             type='checkbox'
             value=''

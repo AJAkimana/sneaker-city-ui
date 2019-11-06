@@ -3,7 +3,8 @@ export const testInitialState = {
 };
 export const productsInitialState = {
   products: { paginatedItems: [], pageNumber: 0, pageSize: 0, pages: 0 },
-  hasFetched: false
+  hasFetched: false,
+  cartProducts: []
 };
 export const productInitialState = {
   product: { in_stock: [] }

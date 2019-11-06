@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
+import $ from 'jquery';
 import logo from './logo.svg';
 import './App.css';
 import configureStore from './store/index';
@@ -8,6 +9,10 @@ import { AppBody } from './views/app.body';
 
 const store = configureStore();
 store.dispatch(checkReducer());
+
+window.jQuery = $;
+window.$ = $;
+global.jQuery = $;
 class App extends Component {
   render() {
     return (
