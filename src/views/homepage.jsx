@@ -24,10 +24,12 @@ class HomePage extends Component {
           <div className='row'>
             {paginatedItems.map(product => (
               <ProductCard
+                key={product.id}
                 name={product.name}
                 model={product.model}
                 price={product.price}
                 picture={product.picture}
+                productId={product.id}
               />
             ))}
           </div>
