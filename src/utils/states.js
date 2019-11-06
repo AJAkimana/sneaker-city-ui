@@ -3,13 +3,17 @@ export const testInitialState = {
 };
 export const productsInitialState = {
   products: { paginatedItems: [], pageNumber: 0, pageSize: 0, pages: 0 },
-  hasFetched: false
+  hasFetched: false,
+  cartProducts: []
 };
 export const productInitialState = {
-  product: {}
+  product: { in_stock: [] }
 };
 
 export const cartInitialState = {
   products: [],
-  hasFetched: false
+  hasFetched: false,
+  addSucces: false,
+  finishSuccess: false,
+  message: ''
 };

@@ -3,3 +3,5 @@ export const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
 export const GET_ONE_PRODUCT = 'GET_ONE_PRODUCT';
 
 export const GET_CARTS_ITEMS = 'GET_CARTS_ITEMS';
+export const ADD_ITEM_TO_CART = 'ADD_ITEM_TO_CART';
+export const FINISH_SHOPPING = 'FINISH_SHOPPING';
