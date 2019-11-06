@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import $ from 'jquery';
-import logo from './logo.svg';
-import './App.css';
 import configureStore from './store/index';
 import { checkReducer } from './actions/test/index';
 import { AppBody } from './views/app.body';
