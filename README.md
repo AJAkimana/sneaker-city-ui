@@ -2,6 +2,10 @@
 
 Sneaker City is a brand new online-only store for sneaker enthusiasts.
 
+# Home page
+
+![Home page](homepage.png)
+
 ## Technologies
 
 - Runtime environment: [Node](https://nodejs.org/)
