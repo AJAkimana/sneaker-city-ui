@@ -1,9 +1,9 @@
-import { fulfilled, cartInitialState } from '../utils';
+import { fulfilled, cartInitialState } from "../utils";
 import {
   GET_CARTS_ITEMS,
   ADD_ITEM_TO_CART,
   FINISH_SHOPPING
-} from '../actions/types';
+} from "../actions/types";
 
 const initialState = { ...cartInitialState };
 export const cartsReducer = (state = initialState, action) => {
@@ -12,7 +12,7 @@ export const cartsReducer = (state = initialState, action) => {
       return {
         ...state,
         hasFetched: true,
-        messsage: '',
+        message: "",
         products: action.payload.data.data
       };
     case fulfilled(ADD_ITEM_TO_CART):

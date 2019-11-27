@@ -1,5 +1,6 @@
-import React from 'react';
-import { defaultImage } from './productCard';
+import React from "react";
+import { defaultImage } from "./productCard";
+import { Link } from "react-router-dom";
 
 export const CartIem = ({
   name,
@@ -10,50 +11,50 @@ export const CartIem = ({
   onSelectItem
 }) => {
   return (
-    <div className='row no-gutters'>
-      <div className='col-md-1'>
-        <label className='checkbox-inline'>
+    <div className="row no-gutters">
+      <div className="col-md-1">
+        <label className="checkbox-inline">
           <input
-            type='checkbox'
-            value=''
-            className='form-control'
+            type="checkbox"
+            value=""
+            className="form-control"
             onClick={onSelectItem}
           />
           {name}
         </label>
       </div>
-      <div className='col-md-3'>
-        <img className='card-img' src={defaultImage} alt='Vans' />
-        <div className='card-img-overlay d-flex justify-content-end'>
-          <a href='#' className='card-link text-danger like'>
-            <i className='fas fa-heart'></i>
-          </a>
+      <div className="col-md-3">
+        <img className="card-img" src={defaultImage} alt="Vans" />
+        <div className="card-img-overlay d-flex justify-content-end">
+          <Link to="#" className="card-link text-danger like">
+            <i className="fas fa-heart"></i>
+          </Link>
         </div>
       </div>
-      <div className='col-md-8'>
-        <div className='card-body'>
-          <h4 className='card-title'>{name}</h4>
-          <h6 className='card-subtitle mb-2 text-muted'>Model: {model}</h6>
-          <p className='card-text'>{description}</p>
-          <div className='options d-flex flex-fill'></div>
-          <div className='row'>
-            <div className='col-md-12'></div>
+      <div className="col-md-8">
+        <div className="card-body">
+          <h4 className="card-title">{name}</h4>
+          <h6 className="card-subtitle mb-2 text-muted">Model: {model}</h6>
+          <p className="card-text">{description}</p>
+          <div className="options d-flex flex-fill"></div>
+          <div className="row">
+            <div className="col-md-12"></div>
             <div
-              className='btn-group col-4 mt-2'
-              role='group'
-              aria-label='Basic example'
+              className="btn-group col-4 mt-2"
+              role="group"
+              aria-label="Basic example"
             >
-              <button type='button' className='btn btn-secondary'>
+              <button type="button" className="btn btn-secondary">
                 Size:
               </button>
-              <button type='button' className='btn btn-secondary'>
+              <button type="button" className="btn btn-secondary">
                 {size}
               </button>
             </div>
           </div>
-          <div className='buy d-flex justify-content-between align-items-center'>
-            <div className='price text-success'>
-              <h5 className='mt-4'>RwF{price}</h5>
+          <div className="buy d-flex justify-content-between align-items-center">
+            <div className="price text-success">
+              <h5 className="mt-4">RwF{price}</h5>
             </div>
           </div>
         </div>
