@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import $ from 'jquery';
-import { ToastContainer } from 'react-toastify';
-import { getProductInfo, getUserCartsItems, addItemToCart } from '../actions';
-import { productInitialState, cartInitialState, getLocalUser } from '../utils';
-import { defaultImage } from '../components/productCard';
-import { CartNav } from '../components';
-import { UserModal } from '../components/userModal';
-import { Notifier } from '../helpers/notifier';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import $ from "jquery";
+import { ToastContainer } from "react-toastify";
+import { getProductInfo, getUserCartsItems, addItemToCart } from "../actions";
+import { productInitialState, cartInitialState, getLocalUser } from "../utils";
+import { defaultImage } from "../components/productCard";
+import { CartNav } from "../components";
+import { UserModal } from "../components/userModal";
+import { Notifier } from "../helpers/notifier";
+import { Link } from "react-router-dom";
 
 class ViewProduct extends Component {
   state = {
@@ -15,8 +16,8 @@ class ViewProduct extends Component {
     ...cartInitialState,
     cart: {
       product_id: null,
-      user: { username: '', address: '', names: '' },
-      size: ''
+      user: { username: "", address: "", names: "" },
+      size: ""
     },
     cartTotalItems: 0
   };
@@ -34,7 +35,7 @@ class ViewProduct extends Component {
     let cartTotalItems = this.state.cartTotalItems;
     cart.product_id = product.id;
     if (message) {
-      $(this.modal).modal('hide');
+      $(this.modal).modal("hide");
       Notifier.success(message);
       cartTotalItems++;
     } else {
@@ -45,7 +46,7 @@ class ViewProduct extends Component {
   addToCart = () => {
     const { cart } = this.state;
     if (!localStorage.user) {
-      $(this.modal).modal('show');
+      $(this.modal).modal("show");
     } else {
       const user = JSON.parse(localStorage.user);
       cart.user = user;
@@ -66,22 +67,23 @@ class ViewProduct extends Component {
     let { names, username, address } = this.state.cart.user;
     const { card } = this.state;
     if (names && username && address) {
-      localStorage.setItem('user', JSON.stringify(this.state.cart.user));
+      localStorage.setItem("user", JSON.stringify(this.state.cart.user));
       this.props.addItemToCart(card);
     } else {
-      Notifier.error('Please add your information');
+      Notifier.error("Please add your information");
     }
   };
   render() {
     const {
       product,
       cartTotalItems,
-      cart: { user }
+      cart: { user, size }
     } = this.state;
+    const selectedSize = size ? `You have selected: ${size}` : null;
     return (
       <div>
         <ToastContainer />
-        <div className='container'>
+        <div className="container">
           <CartNav totalItems={cartTotalItems} title={product.name} />
           <UserModal
             modalRef={modal => (this.modal = modal)}
@@ -89,36 +91,36 @@ class ViewProduct extends Component {
             user={user}
             inputChange={this.handleInputChange}
           />
-          <div className='row'>
-            <div className='card mb-3 mt-5'>
-              <div className='row no-gutters'>
-                <div className='col-md-4'>
-                  <img className='card-img' src={defaultImage} alt='Vans' />
-                  <div className='card-img-overlay d-flex justify-content-end'>
-                    <a href='#' className='card-link text-danger like'>
-                      <i className='fas fa-heart'></i>
-                    </a>
+          <div className="row">
+            <div className="card mb-3 mt-5">
+              <div className="row no-gutters">
+                <div className="col-md-4">
+                  <img className="card-img" src={defaultImage} alt="Vans" />
+                  <div className="card-img-overlay d-flex justify-content-end">
+                    <Link to="#" className="card-link text-danger like">
+                      <i className="fas fa-heart"></i>
+                    </Link>
                   </div>
                 </div>
-                <div className='col-md-8'>
-                  <div className='card-body'>
-                    <h4 className='card-title'>{product.name}</h4>
-                    <h6 className='card-subtitle mb-2 text-muted'>
+                <div className="col-md-8">
+                  <div className="card-body">
+                    <h4 className="card-title">{product.name}</h4>
+                    <h6 className="card-subtitle mb-2 text-muted">
                       Model: {product.model}
                     </h6>
-                    <h6 className='card-subtitle mb-2 text-muted'>
+                    <h6 className="card-subtitle mb-2 text-muted">
                       Brand: {product.brand}
                     </h6>
-                    <p className='card-text'>{product.description}</p>
-                    <div className='options d-flex flex-fill'></div>
-                    <div className='row'>
-                      <div className='col-md-7'>
-                        <div className='text-center'>Quantities in stock</div>
+                    <p className="card-text">{product.description}</p>
+                    <div className="options d-flex flex-fill"></div>
+                    <div className="row">
+                      <div className="col-md-7">
+                        <div className="text-center">Quantities in stock</div>
                       </div>
-                      <div className='col-md-5'>
-                        <div className='text-center'>
-                          Release date:{' '}
-                          <span className='badge badge-secondary'>
+                      <div className="col-md-5">
+                        <div className="text-center">
+                          Release date:{" "}
+                          <span className="badge badge-secondary">
                             {product.release_date}
                           </span>
                         </div>
@@ -126,29 +128,30 @@ class ViewProduct extends Component {
                       {product.in_stock.map((stock, index) => (
                         <div
                           key={index}
-                          className='btn-group col-4 mt-2'
-                          role='group'
-                          aria-label='Basic example'
+                          className="btn-group col-4 mt-2"
+                          role="group"
+                          aria-label="Basic example"
                           onClick={() => this.selectSize(stock.size)}
                         >
-                          <button type='button' className='btn btn-secondary'>
+                          <button type="button" className="btn btn-secondary">
                             Size:{stock.size}
                           </button>
-                          <button type='button' className='btn btn-secondary'>
+                          <button type="button" className="btn btn-secondary">
                             Stock:{stock.remaining}
                           </button>
                         </div>
                       ))}
                     </div>
-                    <div className='buy d-flex justify-content-between align-items-center'>
-                      <div className='price text-success'>
-                        <h5 className='mt-4'>RwF{product.price}</h5>
+                    <div className="buy d-flex justify-content-between align-items-center">
+                      <div className="price text-success">
+                        <h5 className="mt-4">RwF{product.price}</h5>
                       </div>
+                      <h5 className="text-center">{selectedSize}</h5>
                       <button
-                        className='btn btn-danger mt-3'
+                        className="btn btn-danger mt-3"
                         onClick={this.addToCart}
                       >
-                        <i className='fas fa-shopping-cart'></i> Add to Cart
+                        <i className="fas fa-shopping-cart"></i> Add to Cart
                       </button>
                     </div>
                   </div>
@@ -169,12 +172,9 @@ const mapStateToProps = ({
   message,
   products
 });
-const connectedViewProduct = connect(
-  mapStateToProps,
-  {
-    getProductInfo,
-    getUserCartsItems,
-    addItemToCart
-  }
-)(ViewProduct);
+const connectedViewProduct = connect(mapStateToProps, {
+  getProductInfo,
+  getUserCartsItems,
+  addItemToCart
+})(ViewProduct);
 export { connectedViewProduct as ViewProduct };
